@@ -7,38 +7,39 @@ namespace TreeLandJorneyProject
     public class Node
     {
 		public int Name { get; set; }
-		private List<int> roadList;
+		private List<Node> _nodePath;
 
 		public Node()
 		{
-			roadList = new List<int>();
+			_nodePath = new List<Node>();
+			Name = 0;
 		}
 
-		public List<int> RoadList
+		public List<Node> RoadList
 		{
-			get { return roadList; }
+			get { return _nodePath; }
 		}
 
 		public int RoadListCount()
 		{
-			return roadList.Count;
+			return _nodePath.Count;
 		}
 
-		public void AddNewRoadToRoadList(int newRoad)
+		public void AddNewRoadToRoadList(Node newRoad)
 		{
-			if(newRoad == Name)
+			if(newRoad.Name == Name)
 			{
 				return;
 			}
 
-			if(newRoad < 0)
+			if(newRoad == null && Name < 0)
 			{
 				return;
 			}
 
-			if(!roadList.Contains(newRoad))
+			if(!_nodePath.Contains(newRoad))
 			{
-				roadList.Add(newRoad);
+				_nodePath.Add(newRoad);
 			}
 		}
     }
