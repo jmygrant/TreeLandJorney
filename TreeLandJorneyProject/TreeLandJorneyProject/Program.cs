@@ -21,6 +21,10 @@ namespace TreeLandJorneyProject
 
 			//Call the pathListfunction.
 			newNodeList.CreatePaths(newPathList);
+
+			var testList = new List<int>() { 1, 0, 0, 0, 0 };
+
+			newNodeList.FindPath(testList);
         }
     }
 }

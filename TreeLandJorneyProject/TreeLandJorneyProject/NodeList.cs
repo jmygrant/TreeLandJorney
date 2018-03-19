@@ -68,5 +68,66 @@ namespace TreeLandJorneyProject
 
 			}
 		}
+
+		public int FindPath(List<int> knownPath)
+		{
+			int foundPath = 0;
+			List<int> visitPath = new List<int>();
+			for(int index = 0; index < _numberOfNodes; index ++)
+			{
+				if(knownPath[index] >0)
+				{
+					VisitNode(GetNodeAtIndex(knownPath[index]), visitPath);
+					if(visitPath.Count == _numberOfNodes)
+					{
+						foundPath++;
+					}
+				}
+				for (int i = 0; i < visitPath.Count; i++)
+				{
+					Console.Write(string.Format("{0}, ", visitPath[i]));
+				}
+				Console.Write("\n");
+			}
+			//Returns the count of all routes that can be found.
+			return foundPath;
+		}
+
+		public void VisitNode(Node node, List<int> visitPath)
+		{
+			if(visitPath.Count == _numberOfNodes)
+			{
+				return;
+			}
+			//Mark Node as visited
+			if(!visitPath.Contains(node.Name))
+			{
+				visitPath.Add(node.Name);
+			}
+
+			if(node.RoadListCount() > 0)
+			{
+				for(int i=0; i<node.RoadListCount(); i++)
+				{
+					VisitNode(node.RoadList[i], visitPath);
+				}
+			}
+			else
+			{
+				return;
+			}
+		}
+
+		public Node GetNodeAtIndex(int index)
+		{
+			for(int counter = 0; counter < _listOfNodes.Count; counter++)
+			{
+				if(_listOfNodes[counter].Name == index)
+				{
+					return _listOfNodes[counter];
+				}
+			}
+			return null;
+		}
     }
 }
